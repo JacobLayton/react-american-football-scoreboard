@@ -57,6 +57,14 @@ function App() {
             Away Field Goal
           </button>
         </div>
+        <div className="moreButtons">
+          <button className="moreButtons__down">Down</button>
+          <button className="moreButtons__togoInc">To Go +</button>
+          <button className="moreButtons__togoDec">To Go -</button>
+          <button className="moreButtons__ballonInc">Ball On +</button>
+          <button className="moreButtons__ballonDec">Ball On -</button>
+          <button className="moreButtons__quarter">Quarter</button>
+        </div>
       </section>
     </div>
   );
