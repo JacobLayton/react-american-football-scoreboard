@@ -7,6 +7,10 @@ function App() {
   //TODO: STEP 2 - Establish your applictaion's state with some useState hooks.  You'll need one for the home score and another for the away score.
   const [lionScore, setLionScore] = useState(0);
   const [tigerScore, setTigerScore] = useState(0);
+  const [currentDown, setCurrentDown] = useState(1);
+  const [yardsToGo, setYardsToGo] = useState(10);
+  const [ballOnYard, setBallOnYard] = useState(50);
+  const [quarter, setQuarter] = useState(1);
 
   return (
     <div className="container">
@@ -25,7 +29,12 @@ function App() {
             <div className="away__score">{tigerScore}</div>
           </div>
         </div>
-        <BottomRow />
+        <BottomRow
+          currentDown={currentDown}
+          yardsToGo={yardsToGo}
+          ballOnYard={ballOnYard}
+          quarter={quarter}
+        />
       </section>
       <section className="buttons">
         <div className="homeButtons">
@@ -43,6 +52,50 @@ function App() {
             Home Field Goal
           </button>
         </div>
+        <div className="moreButtons">
+          <button
+            className="moreButtons__down"
+            onClick={() =>
+              currentDown === 4
+                ? setCurrentDown(currentDown - 3)
+                : setCurrentDown(currentDown + 1)
+            }
+          >
+            Down
+          </button>
+          <button
+            className="moreButtons__togoInc"
+            onClick={() => setYardsToGo(yardsToGo + 1)}
+          >
+            To Go +
+          </button>
+          <button
+            className="moreButtons__togoDec"
+            onClick={() => setYardsToGo(yardsToGo - 1)}
+          >
+            To Go -
+          </button>
+          <button
+            className="moreButtons__ballonInc"
+            onClick={() => setBallOnYard(ballOnYard + 1)}
+          >
+            Ball On +
+          </button>
+          <button
+            className="moreButtons__ballonDec"
+            onClick={() => setBallOnYard(ballOnYard - 1)}
+          >
+            Ball On -
+          </button>
+          <button
+            className="moreButtons__quarter"
+            onClick={() =>
+              quarter === 4 ? setQuarter(quarter - 3) : setQuarter(quarter + 1)
+            }
+          >
+            Quarter
+          </button>
+        </div>
         <div className="awayButtons">
           <button
             className="awayButtons__touchdown"
@@ -56,14 +109,6 @@ function App() {
           >
             Away Field Goal
           </button>
-        </div>
-        <div className="moreButtons">
-          <button className="moreButtons__down">Down</button>
-          <button className="moreButtons__togoInc">To Go +</button>
-          <button className="moreButtons__togoDec">To Go -</button>
-          <button className="moreButtons__ballonInc">Ball On +</button>
-          <button className="moreButtons__ballonDec">Ball On -</button>
-          <button className="moreButtons__quarter">Quarter</button>
         </div>
       </section>
     </div>
