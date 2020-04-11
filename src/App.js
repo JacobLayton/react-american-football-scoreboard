@@ -1,5 +1,5 @@
 //TODO: STEP 1 - Import the useState hook.
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import BottomRow from "./BottomRow";
 
@@ -11,6 +11,48 @@ function App() {
   const [yardsToGo, setYardsToGo] = useState(10);
   const [ballOnYard, setBallOnYard] = useState(50);
   const [quarter, setQuarter] = useState(1);
+  const [minutes, setMinutes] = useState(12);
+  const [tensSeconds, setTensSeconds] = useState(0);
+  const [onesSeconds, setOnesSeconds] = useState(0);
+  const [clockRunning, setClockRunning] = useState(false);
+
+  useEffect(() => {
+    if (clockRunning) {
+      setTimeout(() => {
+        runClock();
+      }, 1000);
+    }
+  });
+
+  function runClock() {
+    if (minutes > 0 || tensSeconds > 0 || onesSeconds > 0) {
+      runOnesSeconds();
+    }
+  }
+
+  function runOnesSeconds() {
+    if (onesSeconds === 0) {
+      setOnesSeconds(9);
+      runTensSeconds();
+    } else {
+      setOnesSeconds(onesSeconds - 1);
+    }
+  }
+
+  function runTensSeconds() {
+    if (tensSeconds === 0) {
+      setTensSeconds(5);
+      setMinutes(minutes - 1);
+    } else {
+      setTensSeconds(tensSeconds - 1);
+    }
+  }
+
+  function resetClock() {
+    setMinutes(12);
+    setTensSeconds(0);
+    setOnesSeconds(0);
+  }
 
   return (
     <div className="container">
@@ -23,7 +65,10 @@ function App() {
 
             <div className="home__score">{lionScore}</div>
           </div>
-          <div className="timer">00:03</div>
+          <div className="timer">
+            {minutes}:{tensSeconds}
+            {onesSeconds}
+          </div>
           <div className="away">
             <h2 className="away__name">Tigers</h2>
             <div className="away__score">{tigerScore}</div>
@@ -108,6 +153,25 @@ function App() {
             onClick={() => setTigerScore(tigerScore + 3)}
           >
             Away Field Goal
+          </button>
+        </div>
+      </section>
+      <section>
+        <div className="clockButtons">
+          <button
+            className="startClockButton"
+            onClick={() => setClockRunning(true)}
+          >
+            Start Clock
+          </button>
+          <button
+            className="stopClockButton"
+            onClick={() => setClockRunning(false)}
+          >
+            Stop Clock
+          </button>
+          <button className="ResetClockButton" onClick={() => resetClock()}>
+            Reset Clock
           </button>
         </div>
       </section>
