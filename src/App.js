@@ -111,6 +111,13 @@ function App() {
           </button>
         </div>
       </section>
+      <section>
+        <div className="clockButtons">
+          <button className="startClockButton">Start Clock</button>
+          <button className="stopClockButton">Stop Clock</button>
+          <button className="ResetClockButton">Reset Clock</button>
+        </div>
+      </section>
     </div>
   );
 }
